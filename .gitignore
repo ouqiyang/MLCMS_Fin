@@ -1,0 +1,15 @@
+# LaTeX output
+*.dvi
+*.log
+*.fls
+*.aux
+*.nav
+*.toc
+*.snm
+*.out
+*.fdb_latexmk
+*.vrb
+*.synctex.gz
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
