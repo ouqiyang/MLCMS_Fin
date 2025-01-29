@@ -5,11 +5,11 @@ from model import PedestrianSpeedNN
 from data_process import get_dataloader
 
 # train params
-EPOCHS = 10
-BATCH_SIZE = 128
-LEARNING_RATE = 0.001
+EPOCHS = 160
+BATCH_SIZE = 1024
+LEARNING_RATE = 0.0001
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+l1_lambda = 1e-5
 # load data
 train_loader, test_loader = get_dataloader("data/Corridor_Data", batch_size=BATCH_SIZE)
 
@@ -18,6 +18,12 @@ input_size = 1 + 10 * 2  # 1 mean_spacing + 10 neighbor (x, y)
 model = PedestrianSpeedNN(input_size).to(DEVICE)
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 loss_fn = nn.MSELoss()
+
+def l1_regularization(model, lambda_l1):
+    l1_loss = 0
+    for param in model.parameters():
+        l1_loss += torch.sum(torch.abs(param))
+    return lambda_l1 * l1_loss
 
 # train epoch
 for epoch in range(EPOCHS):
@@ -29,6 +35,8 @@ for epoch in range(EPOCHS):
         optimizer.zero_grad()
         outputs = model(inputs).squeeze()
         loss = loss_fn(outputs, targets)
+        loss += l1_regularization(model, l1_lambda)
+
         loss.backward()
         optimizer.step()
         
