@@ -1,9 +1,8 @@
-First, change to the project root directory.
 For building the environment, first run: 
 
     pip install -r code/requirements.txt
 
-For the whole process of training, testing and evaluating the model,  use:
+For training, testing and evaluating the model,  use:
 
     python code/main.py
  
@@ -11,3 +10,8 @@ For the whole process of training, testing and evaluating the model,  use:
 
     train_loader, test_loader = get_dataloader("data/Corridor_Data", batch_size=BATCH_SIZE)
     train_loader_wiedmann, _ = get_wiedmann_dataloader("data/Corridor_Data", batch_size=BATCH_SIZE)
+
+For ploting the data, use: 
+
+    python code/src/plot_predictions_ann.py 
+    python code/src/plot_predictions.py
