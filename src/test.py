@@ -12,7 +12,7 @@ fixed_predictions = []
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# 加载模型
+# load model
 input_size = 1 + 10 * 2
 model = PedestrianSpeedNN(input_size).to(DEVICE)
 model.load_state_dict(torch.load("model.pth"))
@@ -25,12 +25,12 @@ wiedmann_model.eval()
 # Load fixed Wiedmann model
 fixed_model = WiedmannFixedModel()
 
-# 加载测试数据
+# load test data
 test_loader = get_dataloader("data/Corridor_Data", batch_size=32, shuffle=False)[1]
 _, test_loader_wiedmann = get_wiedmann_dataloader("data/Corridor_Data", batch_size=32, shuffle=False)
 
 
-# 计算测试误差
+# calculate MSE
 total_loss = 0
 loss_fn = torch.nn.MSELoss()
 
