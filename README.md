@@ -1,5 +1,5 @@
 First, change to the project root directory.
-For building the environment, first run: 
+For building the environment, run: 
 
     pip install -r code/requirements.txt
 
